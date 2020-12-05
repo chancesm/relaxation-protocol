@@ -1,8 +1,10 @@
 const { parse } = require('querystring');
 
 exports.handler = async (event, context) => {
-  if (event.httpMethod !== 'POST')
+  if (event.httpMethod !== 'POST') {
+    
     return { statusCode: 405, body: 'HTTP Method Unavailable' };
+  }
 
   let body = {}
   console.log(event)
