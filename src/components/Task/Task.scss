@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.Task {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: $gray;
+}

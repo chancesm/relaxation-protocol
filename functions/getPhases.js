@@ -4,10 +4,7 @@ axios.defaults.baseURL = 'https://api.airtable.com/v0/appFMk4lYW96cxPfu';
 axios.defaults.headers.common['Authorization'] = `Bearer ${AIRTABLE_API_KEY}`;
 
 exports.handler = async (event, context) => {
-  const { phase } = event.queryStringParameters;
-  if (phase === undefined)
-    return { statusCode: 400, body: 'phase query parameter required' };
-  return axios.get(`/${phase}?view=Grid%20view`)
+  return axios.get(`/Phases?view=Grid%20view`)
     .then(response => {
       const body = response.data.records ? response.data.records : []
       return ({
