@@ -14,6 +14,7 @@ function App() {
       .then(data => {
         setPhases(data);
       })
+      // eslint-disable-next-line
   }, [])
   useEffect(() => {
     if (currentPhase !== '') {
@@ -25,6 +26,7 @@ function App() {
         });
     }
     setCurrentTask(0);
+    // eslint-disable-next-line
   }, [currentPhase])
   useEffect(() => {
     if(tasks.length > 0 && phases.length > 0){
