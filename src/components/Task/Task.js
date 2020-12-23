@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './Task.scss';
 
 function Task(props) {
   return (
     <div className="Task">
-      HELLO
+      <div className="title">{props.task.fields.Task}/{props.totalTasks}</div>
+      <div className="taskContent">
+        <p>{props.task.fields.Text}</p>
+      </div>
     </div>
   );
 }

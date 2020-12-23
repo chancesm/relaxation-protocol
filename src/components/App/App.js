@@ -7,14 +7,36 @@ function App() {
   const [tasks, setTasks] = useLocalStorage('tasks', []);
   const [currentTask, setCurrentTask] = useLocalStorage('currentTask', 0);
   const [phases, setPhases] = useLocalStorage('phases', [])
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch('/api/getPhases').then(response => response.json()).then(data => setPhases(data))
+    fetch('/api/getPhases')
+      .then(response => response.json())
+      .then(data => {
+        setPhases(data);
+      })
   }, [])
   useEffect(() => {
     if (currentPhase !== '') {
-      fetch(`/api/getTasks?phase=${currentPhase}`).then(response => response.json()).then(data => setTasks(data));
+      setLoading(true)
+      fetch(`/api/getTasks?phase=${currentPhase}`)
+        .then(response => response.json())
+        .then(data => {
+          setTasks(data);
+        });
     }
+    setCurrentTask(0);
   }, [currentPhase])
+  useEffect(() => {
+    if(tasks.length > 0 && phases.length > 0){
+      setLoading(false);
+    }
+    else(setLoading(true))
+  }, [phases, tasks])
+  const clickHandle = () => {
+    const audio = document.querySelector(`audio`);
+    audio.currentTime = 0;
+    audio.play();
+  }
   return (
     <div className="App">
       <Header 
@@ -23,9 +45,24 @@ function App() {
         handler={(val) => setCurrentPhase(val)}
         selectedPhase={currentPhase}
       />
-      <div className="content">
-        <Task />
-      </div>
+      { loading ? <div className="content"><div class="lds-dual-ring"></div></div> : 
+      <>
+        <div className="content">
+          <Task task={tasks[currentTask]} totalTasks={tasks.length}/>
+        </div>
+        <div className="footer">
+          <button className="clickButton" onClick={clickHandle}>CLICK</button>
+          <button 
+            className="nextButton"
+            disabled={currentTask >= tasks.length - 1}
+            onClick={() => setCurrentTask(currentTask + 1)}
+          >
+            NEXT
+          </button>
+        </div>
+        <audio  src="click.mp3"></audio>
+      </>
+      }
     </div>
   );
 }

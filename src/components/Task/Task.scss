@@ -1,9 +1,30 @@
 @import '../../styles/variables.scss';
 
 .Task {
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: $box-shadow;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   background-color: $gray;
+  color: white;
+  min-height: 180px;
+  width: 204px;
+  div.title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  div.taskContent {
+    flex: 1;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    p {
+      line-height: 1.2;
+      font-size: 1.2em;
+      text-align: center;
+    }
+  }
 }
